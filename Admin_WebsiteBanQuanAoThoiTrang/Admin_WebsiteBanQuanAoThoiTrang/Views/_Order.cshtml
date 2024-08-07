@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Admin_WebsiteBanQuanAoThoiTrang.Models.OrderDetail>
+
+<div class="row">
+    <div class="col-md-9">
+        <div class="table-responsive ">
+            <table class="table table-condensed table-hover table-bordered table-striped table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                        <th>Tổng cộng</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>#</td>
+                            <td>@item.Product.Name</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.UnitPrice</td>
+                            <td>@item.TotalAmount</td>
+                        </tr>
+                    }
+                </tbody>
+                
+            </table>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="well well-lg">
+            <div class="row">
+                <h3>Số lượng : 40,200</h3>
+            </div>
+            <div class="row">
+                <h4>Giảm giá : 1,200</h4>
+            </div>
+            <hr /><hr />
+            <div class="row text-success">
+                <h3>T. Số lượng : 39,000</h3>
+            </div>
+        </div>
+    </div>
+</div>

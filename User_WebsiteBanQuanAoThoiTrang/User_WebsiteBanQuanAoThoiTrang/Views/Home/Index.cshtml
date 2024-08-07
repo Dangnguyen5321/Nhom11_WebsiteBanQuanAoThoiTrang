@@ -1,0 +1,310 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<!-- Bắt đầu slider -->
+<section id="aa-slider">
+    <div class="aa-slider-area">
+        <div id="sequence" class="seq">
+            <div class="seq-screen">
+                <ul class="seq-canvas">
+
+                    <!-- phần tử slide đơn -->
+                    @foreach (var item in @ViewBag.Slider)
+                    {
+                        <li>
+                            <div class="seq-model">
+                                <img data-seq src="@item.ImageURL" alt="@item.AltText" />
+                            </div>
+                            <div class="seq-title">
+                                <span data-seq>@item.OfferTag</span>
+                                <h2 data-seq>@item.Title</h2>
+                                <p data-seq>@item.Description</p>
+                                <a data-seq href="#" class="aa-shop-now-btn aa-secondary-btn">@item.BtnText</a>
+                            </div>
+                        </li>
+                    }
+                    <!-- kết thúc phần tử slide đơn -->
+
+                </ul>
+            </div>
+            <!-- nút điều hướng slider -->
+            <fieldset class="seq-nav" aria-controls="sequence" aria-label="Nút điều hướng Slider">
+                <a type="button" href="" class="seq-prev" aria-label="Trước"><span class="fa fa-angle-left"></span></a>
+                <a type="button" href="" class="seq-next" aria-label="Tiếp theo"><span class="fa fa-angle-right"></span></a>
+            </fieldset>
+        </div>
+    </div>
+</section>
+<!-- / slider -->
+<!-- Bắt đầu phần khuyến mãi -->
+<section id="aa-promo">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="aa-promo-area">
+                    <div class="row">
+                        <!-- khuyến mãi bên trái -->
+                        <div class="col-md-5 no-padding">
+                            <div class="aa-promo-left">
+                                <div class="aa-promo-banner">
+                                    <img src="~/Content/img/promo-banner-womens.jpg" alt="hình ảnh">
+                                    <div class="aa-prom-content">
+                                        <span>Giảm 75%</span>
+                                        <h4><a href="@Url.Action("GetProductsByCategory", "Product", new { @categoryName = "Nữ" })">Dành cho nữ</a></h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- khuyến mãi bên phải -->
+                        <div class="col-md-7 no-padding">
+                            <div class="aa-promo-right">
+                                @foreach (var item in @ViewBag.PromoRight)
+                                {
+                                    <div class="aa-single-promo-right">
+                                        <div class="aa-promo-banner">
+                                            <img src="@item.ImageURL" alt="@item.AltText">
+                                            <div class="aa-prom-content">
+                                                <span>@item.OfferTag</span>
+                                                <h4><a href="@Url.Action("GetProductsByCategory", "Product", new { @categoryName = @item.Category.Name })">@item.Title</a></h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- / phần khuyến mãi -->
+<!-- Phần sản phẩm -->
+<section id="aa-product">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="aa-product-area">
+                        <div class="aa-product-inner">
+                            <!-- bắt đầu điều hướng sản phẩm -->
+                            <ul class="nav nav-tabs aa-products-tab">
+                                <li class="active"><a href="#men" data-toggle="tab">Nam</a></li>
+                                <li><a href="#women" data-toggle="tab">Nữ</a></li>
+                                <li><a href="#sports" data-toggle="tab">Thể thao</a></li>
+                                <li><a href="#electronics" data-toggle="tab">Phụ kiện</a></li>
+                            </ul>
+                            <!-- Nội dung Tab -->
+                            <div class="tab-content">
+                                <!-- Bắt đầu danh mục sản phẩm nam -->
+                                <div class="tab-pane fade in active" id="men">
+                                    <ul class="aa-product-catg">
+                                        <!-- bắt đầu phần tử sản phẩm đơn -->
+                                        @foreach (var item in (List<User_WebsiteBanQuanAoThoiTrang.Models.Product>)@ViewBag.MenProduct)
+                                        {
+                                            { Html.RenderPartial("_Product", item); }
+                                        }
+                                        <!-- kết thúc phần tử sản phẩm đơn -->
+                                    </ul>
+                                </div>
+
+                                <!-- bắt đầu danh mục sản phẩm nữ -->
+                                <div class="tab-pane fade" id="women">
+                                    <ul class="aa-product-catg">
+                                        <!-- bắt đầu phần tử sản phẩm đơn -->
+                                        @foreach (var item in (List<User_WebsiteBanQuanAoThoiTrang.Models.Product>)@ViewBag.WomenProduct)
+                                        {
+                                            { Html.RenderPartial("_Product", item); }
+                                        }
+                                        <!-- kết thúc phần tử sản phẩm đơn -->
+                                    </ul>
+                                </div>
+
+                                <!-- bắt đầu danh mục sản phẩm thể thao -->
+                                <div class="tab-pane fade" id="sports">
+                                    <ul class="aa-product-catg">
+                                        <!-- bắt đầu phần tử sản phẩm đơn -->
+                                        @foreach (var item in (List<User_WebsiteBanQuanAoThoiTrang.Models.Product>)@ViewBag.SportsProduct)
+                                        {
+                                            { Html.RenderPartial("_Product", item); }
+                                        }
+                                        <!-- kết thúc phần tử sản phẩm đơn -->
+                                    </ul>
+                                </div>
+
+                                <!-- bắt đầu danh mục sản phẩm điện tử -->
+                                <div class="tab-pane fade" id="electronics">
+                                    <ul class="aa-product-catg">
+                                        <!-- bắt đầu phần tử sản phẩm đơn -->
+                                        @foreach (var item in (List<User_WebsiteBanQuanAoThoiTrang.Models.Product>)@ViewBag.AccessorysProduct)
+                                        {
+                                            { Html.RenderPartial("_Product", item); }
+                                        }
+                                        <!-- kết thúc phần tử sản phẩm đơn -->
+                                    </ul>
+                                </div>
+                                <!-- / danh mục sản phẩm điện tử -->
+                            </div>
+                            <!-- modal xem nhanh -->
+                            <div class="modal fade" id="quick-view-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <div class="row">
+                                                <!-- Modal xem slider -->
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <div class="aa-product-view-slider">
+                                                        <div class="simpleLens-gallery-container" id="demo-1">
+                                                            <div class="simpleLens-container">
+                                                                <div class="simpleLens-big-image-container">
+                                                                    <a class="simpleLens-lens-image" data-lens-image="img/view-slider/large/polo-shirt-1.png">
+                                                                        <img src="~/Content/img/view-slider/medium/polo-shirt-1.png" class="simpleLens-big-image">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="simpleLens-thumbnails-container">
+                                                                <a href="#" class="simpleLens-thumbnail-wrapper"
+                                                                   data-lens-image="img/view-slider/large/polo-shirt-1.png"
+                                                                   data-big-image="img/view-slider/medium/polo-shirt-1.png">
+                                                                    <img src="~/Content/img/view-slider/thumbnail/polo-shirt-1.png">
+                                                                </a>
+                                                                <a href="#" class="simpleLens-thumbnail-wrapper"
+                                                                   data-lens-image="img/view-slider/large/polo-shirt-3.png"
+                                                                   data-big-image="img/view-slider/medium/polo-shirt-3.png">
+                                                                    <img src="~/Content/img/view-slider/thumbnail/polo-shirt-3.png">
+                                                                </a>
+
+                                                                <a href="#" class="simpleLens-thumbnail-wrapper"
+                                                                   data-lens-image="img/view-slider/large/polo-shirt-4.png"
+                                                                   data-big-image="img/view-slider/medium/polo-shirt-4.png">
+                                                                    <img src="~/Content/img/view-slider/thumbnail/polo-shirt-4.png">
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Nội dung modal xem -->
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <div class="aa-product-view-content">
+                                                        <h3>Áo thun</h3>
+                                                        <div class="aa-price-block">
+                                                            <span class="aa-product-view-price">250.000 VNĐ</span>
+                                                            <p class="aa-product-avilability">Tình trạng: <span>Còn hàng</span></p>
+                                                        </div>
+                                                        <p>Điều rất quan trọng là khách hàng phải chú ý đến quá trình mua sắm. Qua việc thoả mãn nhu cầu mua sắm, vậy thì nên tìm kiếm ngay!</p>
+                                                        <h4>Kích cỡ</h4>
+                                                        <div class="aa-prod-view-size">
+                                                            <a href="#">S</a>
+                                                            <a href="#">M</a>
+                                                            <a href="#">L</a>
+                                                            <a href="#">XL</a>
+                                                        </div>
+                                                        <div class="aa-prod-quantity">
+                                                            <form action="">
+                                                                <select name="" id="">
+                                                                    <option value="0" selected="1">1</option>
+                                                                    <option value="1">2</option>
+                                                                    <option value="2">3</option>
+                                                                    <option value="3">4</option>
+                                                                    <option value="4">5</option>
+                                                                    <option value="5">6</option>
+                                                                </select>
+                                                            </form>
+                                                            <p class="aa-prod-category">
+                                                                Danh mục: <a href="#">Áo thun Polo</a>
+                                                            </p>
+                                                        </div>
+                                                        <div class="aa-prod-view-bottom">
+                                                            <a href="#" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>Thêm vào giỏ</a>
+                                                            <a href="#" class="aa-add-to-cart-btn">Xem chi tiết</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div><!-- / modal xem nhanh -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- / phần sản phẩm -->
+<!-- phần banner -->
+<section id="aa-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="aa-banner-area">
+                        <a href="#"><img src="~/Content/img/fashion-banner.jpg" alt="hình ảnh banner thời trang"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- phần phổ biến -->
+<section id="aa-popular-category">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="aa-popular-category-area">
+                        <!-- bắt đầu điều hướng sản phẩm -->
+                        <ul class="nav nav-tabs aa-products-tab">
+                            <li class="active"><a href="#popular" data-toggle="tab">Phổ biến</a></li>
+                            <li><a href="#featured" data-toggle="tab">Nổi bật</a></li>
+                            <li><a href="#latest" data-toggle="tab">Mới nhất</a></li>
+                        </ul>
+                        <!-- Nội dung Tab -->
+                        <div class="tab-content">
+                            <!-- Bắt đầu danh mục phổ biến -->
+                            <div class="tab-pane fade in active" id="popular">
+                                <ul class="aa-product-catg aa-popular-slider">
+                                    <!-- bắt đầu phần tử sản phẩm đơn -->
+                                    @foreach (var item in (List<User_WebsiteBanQuanAoThoiTrang.Models.Product>)@ViewBag.MenProduct)
+                                    {
+                                        { Html.RenderPartial("_Product", item); }
+                                    }
+                                    <!-- kết thúc phần tử sản phẩm đơn -->
+                                </ul>
+                            </div>
+                            <!-- / danh mục phổ biến -->
+                            <!-- bắt đầu danh mục nổi bật -->
+                            <div class="tab-pane fade" id="featured">
+                                <ul class="aa-product-catg aa-featured-slider">
+                                    <!-- bắt đầu phần tử sản phẩm đơn -->
+                                    @foreach (var item in (List<User_WebsiteBanQuanAoThoiTrang.Models.Product>)@ViewBag.SportsProduct)
+                                    {
+                                        { Html.RenderPartial("_Product", item); }
+                                    }
+                                    <!-- kết thúc phần tử sản phẩm đơn -->
+                                </ul>
+                            </div>
+                            <!-- / danh mục nổi bật -->
+                            <!-- bắt đầu danh mục mới nhất -->
+                            <div class="tab-pane fade" id="latest">
+                                <ul class="aa-product-catg aa-latest-slider">
+                                    <!-- bắt đầu phần tử sản phẩm đơn -->
+                                    @foreach (var item in (List<User_WebsiteBanQuanAoThoiTrang.Models.Product>)@ViewBag.AccessorysProduct)
+                                    {
+                                        { Html.RenderPartial("_Product", item); }
+                                    }
+                                    <!-- kết thúc phần tử sản phẩm đơn -->
+                                </ul>
+                            </div>
+                            <!-- / danh mục mới nhất -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- / phần phổ biến -->
