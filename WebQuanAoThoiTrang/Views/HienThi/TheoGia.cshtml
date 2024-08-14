@@ -1,0 +1,84 @@
+﻿@model IEnumerable<WebQuanAoThoiTrang.Models.SanPham>
+@{
+    ViewBag.Title = "TheoGia";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<link href="~/Content/Site.css" rel="stylesheet" />
+<div class="container-fluid bg-white">
+    <div class="row">
+        <div class="col-md-3">
+            @Html.Action("Side", "HienThi")
+
+        </div>
+        <div class="col-md-9">
+            <h2 class="text-center text-danger align-content-center">Sản phẩm theo giá: @ViewBag.SelectedPriceRange</h2>
+            @*<div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card product-card" style="height:350px">
+                        <a href="@Url.Action("Details", "HienThi", new { id = item.IDSanPham })" class="stretched-link"></a>
+                        <img class="card-img-top" src="~/img/img_sp/@item.HinhAnh" alt="@item.TenSanPham">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.TenSanPham</h5>
+                            <p class="card-text text-danger">@item.Gia VNĐ</p>
+                            <p class="card-text text-muted">Số lượng còn: @item.SoLuongTon</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>*@
+            <div class="product-list">
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-4 mb-4 product">
+
+                        <div class="product-card">
+                            <div class="position-relative Image">
+                                <a href="@Url.Action("Details", "HienThi", new {@id= item.IDSanPham})" title="xemchitiet">
+                                    <img src="~/img/img_sp/@item.HinhAnh" height="180" />
+                                </a>
+                            </div>
+                            <div class="product-info">
+
+                                @Html.ActionLink(item.TenSanPham, "Details", "HienThi", new { id = item.IDSanPham }, null)
+                                <p class="product-price">
+                                    @item.Gia
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <button class="btn btn-outline-danger btn-sm" onclick="addToCart(@item.IDSanPham)">Giỏ Hàng</button>
+                                    </div>
+
+                                    <script>
+function addToCart(maSP) {
+    fetch('@Url.Action("AddToCart", "Cart")', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest',
+        },
+        body: JSON.stringify({ maSP: maSP })
+    })
+    .then(response => {
+        if(response.ok) {
+            alert('Sản phẩm đã được thêm vào giỏ hàng!');
+        } else {
+            alert('Có lỗi xảy ra. Vui lòng thử lại!');
+        }
+    })
+    .catch(error => console.error('Lỗi:', error));
+}
+                                    </script>
+
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

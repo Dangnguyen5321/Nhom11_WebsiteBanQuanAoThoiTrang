@@ -1,0 +1,64 @@
+﻿@model WebQuanAoThoiTrang.Areas.Admin.Data.TaikhoanVM
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+@{
+    ViewBag.Title = "AddAccount";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h3>THÊM TÀI KHOẢN</h3>
+
+@using (Html.BeginForm("AddAccount", "QLTaiKhoanAdmin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TenTK, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TenTK, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenTK, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MatKhau, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="password" id="Password" name="Password" class="form-control" />
+                @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.VaiTro, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.VaiTro, (IEnumerable<SelectListItem>)ViewBag.RoleList, new { @class = "form-control" })
+
+                @Html.ValidationMessageFor(model => model.VaiTro, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="margin-top:10px">
+            <div class="col-md-10">
+                <button type="submit" class="btn btn-xs btn-success" style="margin-right:20px">
+                    <i class="fa fa-save"></i> Lưu lại
+                </button>
+                <a href="@Url.Action("Index", "QLTaiKhoanAdmin")" class="btn btn-xs btn-secondary" title="Quay về">
+                    <i class="fa fa-arrow-left"></i> Quay về
+                </a>
+            </div>
+        </div>
+    </div>
+}
+

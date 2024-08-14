@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+
+    @System.Web.Optimization.Styles.Render("~/Content/css")
+    @System.Web.Optimization.Scripts.Render("~/bundles/modernizr")
+
+    <link rel="shortcut icon" type="image/x-icon" href="~/img/logoqatt.png" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #343a40;
+        }
+
+        .container {
+            flex: 1;
+        }
+
+        .navbar {
+            background-color: #563d7c;
+        }
+
+        .navbar .nav-link {
+            color: #ffffff !important;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .navbar .nav-link:hover {
+            color: #f8d210 !important;
+        }
+
+        .search-bar .form-control {
+            border-radius: 20px;
+            padding-left: 15px;
+        }
+
+        .search-bar .btn {
+            border-radius: 20px;
+            background-color: #f8d210;
+            color: #563d7c;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-bar .btn:hover {
+            background-color: #f8c310;
+        }
+
+        .navbar-brand img {
+            height: 80px;
+            width: 80px;
+            /* Bỏ border-radius để logo không còn bo tròn */
+        }
+
+        footer {
+            background-color: #563d7c;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: auto;
+        }
+
+        footer h5 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .navbar-nav {
+            margin-left: 20px; /* Khoảng cách giữa logo và các mục điều hướng */
+        }
+        
+        .navbar-nav .nav-item {
+            margin-left: 15px; /* Khoảng cách giữa các mục điều hướng */
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm navbar-dark">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="@Url.Action("Index", "TrangChu")" class="navbar-brand">
+                <img src="~/img/logoqatt.png" alt="Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav d-flex align-items-center ms-auto">
+                    <li class="nav-item">
+                        @Html.ActionLink("Trang Chủ", "Index", "TrangChu", new { area = "" }, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        <div class="search-bar me-3">
+                            <form action="@Url.Action("TimKiem", "SanPham")" method="get" class="d-flex">
+                                <input class="form-control" type="search" placeholder="Tìm kiếm" aria-label="Search" name="tenSanPham">
+                                <button class="btn ms-2" type="submit"><i class="fas fa-search"></i></button>
+                            </form>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Cart")">
+                            <i class="fas fa-shopping-cart"></i> Giỏ hàng
+                        </a>
+                    </li>
+
+                    @if (Session["TenTK"] == null)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "TaiKhoan", new { area = "Admin" })">
+                                <i class="fas fa-sign-in-alt"></i> Đăng nhập
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href=""><i class="fas fa-user"></i>Xin chào, @Session["TenTK"]</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "TaiKhoan", new { area = "Admin" })">
+                                <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+    </div>
+
+    <footer>
+        <h5>HOTLINE: 0334559101</h5>
+    </footer>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

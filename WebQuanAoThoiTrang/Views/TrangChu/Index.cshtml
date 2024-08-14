@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<main>
+    <section class="row">
+        <div class="col-md-12">
+            @Html.Action("Index", "Slide")
+        </div>
+    </section>
+    <section class="row">
+        <div class="col-md-12">
+            @Html.Action("Index", "HienThi")
+        </div>
+    </section>
+</main>

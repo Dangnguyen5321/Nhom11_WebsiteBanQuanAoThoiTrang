@@ -1,0 +1,126 @@
+﻿@{
+    ViewBag.Title = "Signup";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" type="image/x-icon" href="~/img/logoqatt.png" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #2a2a2a, #6c757d);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .register-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+            .register-container h3 {
+                font-weight: 600;
+                color: #333;
+            }
+
+        .register-btn {
+            background-color: #007bff;
+            color: white;
+            border-radius: 8px;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+            .register-btn:hover {
+                background-color: #0056b3;
+                color: white;
+            }
+
+        .alert {
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            box-shadow: none;
+        }
+
+            .form-control:focus {
+                box-shadow: none;
+                border-color: #28a745;
+            }
+
+        .control-label {
+            font-weight: 600;
+            color: #333;
+        }
+        .login-link {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+            .login-link a {
+                color: #007bff;
+                font-weight: 600;
+                text-decoration: none;
+            }
+
+                .login-link a:hover {
+                    color: #0056b3;
+                    text-decoration: underline;
+                }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h3 class="text-center">Đăng Ký</h3>
+        <hr />
+        @using (Html.BeginForm("Index", "DangKyUser", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label for="username" class="control-label">Tên đăng nhập</label>
+                @Html.TextBox("TenTK", null, new { @class = "form-control", @placeholder = "Tên đăng nhập" })
+            </div>
+            <div class="form-group">
+                <label for="password" class="control-label">Mật khẩu</label>
+                @Html.Password("MatKhau", null, new { @class = "form-control", @placeholder = "Mật khẩu" })
+            </div>
+            <div class="form-group">
+                <label for="email" class="control-label">Email</label>
+                @Html.TextBox("Email", null, new { @class = "form-control", @placeholder = "Email" })
+            </div>
+            if (ViewBag.ErrorMessage != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @ViewBag.ErrorMessage
+                </div>
+            }
+            <div class="form-group text-center">
+                <button type="submit" class="btn register-btn btn-block">
+                    <i class="fa fa-user-plus"></i> Đăng Ký
+                </button>
+            </div>
+            <div class="login-link">
+                <p>Quay về <a href="@Url.Action("Index", "TaiKhoan", new { area = "Admin" })">Đăng nhập</a></p>
+            </div>
+        }
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

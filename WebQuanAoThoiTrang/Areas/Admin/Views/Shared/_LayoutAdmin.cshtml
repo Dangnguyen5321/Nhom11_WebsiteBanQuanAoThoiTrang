@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>@ViewBag.Title - Admin Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="~/img/logoqatt.png" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="~/Areas/Admin/Css/style.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .sidebar {
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #343a40;
+            color: #fff;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+            .sidebar a {
+                color: #ced4da;
+                text-decoration: none;
+                display: block;
+                padding: 10px;
+                border-radius: 4px;
+            }
+
+                .sidebar a:hover {
+                    background-color: #495057;
+                    color: #fff;
+                }
+
+            .sidebar .active {
+                background-color: #007bff;
+                color: #fff;
+            }
+
+        .navbar {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+            .navbar .navbar-nav .nav-link {
+                color: #fff;
+            }
+
+                .navbar .navbar-nav .nav-link:hover {
+                    color: #e9ecef;
+                }
+
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .brand-logo {
+            margin-bottom: 20px;
+        }
+
+            .brand-logo img {
+                border-radius: 50%;
+            }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="brand-logo">
+            <img src="~/img/logoqatt.png" height="50" alt="Bookshop" class="d-inline-block align-text-center">
+            <h3 class="mt-2">Page Admin</h3>
+        </div>
+        <a href="@Url.Action("Index", "DefaultAdmin")" class="@ViewBag.Active == 'Dashboard' ? 'active' : ''"><i class="fas fa-tachometer-alt"></i> Trang chủ</a>
+        <a href="@Url.Action("Index", "QLSanPhamAdmin")" class="@ViewBag.Active == 'Products' ? 'active' : ''"><i class="fas fa-box-open"></i> Sản phẩm</a>
+        <a href="@Url.Action("Index", "QLNCCAdmin")" class="@ViewBag.Active == 'Suppliers' ? 'active' : ''"><i class="fas fa-truck"></i> Nhà cung cấp</a>
+        <a href="@Url.Action("Index", "QLTaiKhoanAdmin")" class="@ViewBag.Active == 'Accounts' ? 'active' : ''"><i class="fas fa-user"></i> Tài khoản</a>
+        <a href="@Url.Action("Index", "QLDonHangAdmin")" class="@ViewBag.Active == 'Orders' ? 'active' : ''"><i class="fas fa-receipt"></i> Đơn hàng</a>
+        <a href="@Url.Action("Index", "QLThongKeAdmin")" class="@ViewBag.Active == 'Statistics' ? 'active' : ''"><i class="fas fa-chart-line"></i> Thống kê</a>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href=""><i class="fas fa-user"></i>Xin chào, @Session["TenTK"]</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "TaiKhoan")">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content">
+        <section class="row">
+            <div class="col-md-12">
+                @RenderBody()
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Home page";
+    Layout = null;
+}
+
+<style>
+    .container-slideshow {
+        width: 100%;
+        height: 15rem;
+        background-color: white;
+    }
+
+    #carouselExample {
+        width: 100%;
+        height: 100%;
+        margin: auto;
+    }
+
+    .carousel-inner {
+        width: 100%;
+        height: 100%;
+        margin: auto;
+    }
+
+    .carousel-item {
+        width: 100%;
+        height: 100%;
+        margin: 0; /* Loại bỏ khoảng cách giữa các item */
+        padding: 0; /* Loại bỏ padding */
+        position: relative;
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Lấp đầy không gian mà không tạo khoảng trắng */
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background-color: black; /* Thay đổi màu của các nút điều khiển */
+        border-radius: 50%; /* Tạo hình tròn cho các nút điều khiển */
+    }
+</style>
+
+<div class="container-slideshow">
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel" data-bs-interval="10000">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="~/img/1.jpg" class="carousel-img d-block w-100" alt="slide-show-1">
+            </div>
+            <div class="carousel-item">
+                <img src="~/img/2.jpg" class="carousel-img d-block w-100" alt="slide-show-2">
+            </div>
+            <div class="carousel-item">
+                <img src="~/img/3.jpg" class="carousel-img d-block w-100" alt="slide-show-3">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>

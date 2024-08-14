@@ -1,0 +1,94 @@
+﻿@model IEnumerable<WebQuanAoThoiTrang.Models.SanPham>
+@{
+    ViewBag.Title = "Goiy";
+    Layout = null;
+}
+
+<link href="~/Content/Site.css" rel="stylesheet" />
+<div class="Sale bg-white container-fluid">
+    <div class="row">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2 style="color: mediumblue;">Sản phẩm gợi ý</h2>
+        </div>
+        <div id="suggestedProductsCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                @{
+                    int itemCount = 0;
+                    bool isRowOpen = false;
+                    foreach (var item in Model)
+                    {
+                        var isActive = itemCount == 0 ? "active" : "";
+                        if (itemCount % 3 == 0)
+                        {
+                            if (isRowOpen)
+                            {
+                                @:</div> <!-- Close previous row -->
+                                @:</div> <!-- Close previous carousel-item -->
+                            }
+                            @:<div class="carousel-item @isActive">
+                            @:<div class="row">
+                            isRowOpen = true;
+                        }
+
+                        <div class="col-md-4 mb-4">
+                            <div class="product-card" style="height: 350px;">
+                                <div class="position-relative Image">
+                                    <a href="@Url.Action("Details", "HienThi", new { @id = item.IDSanPham })" title="xemchitiet">
+                                        <img class="card-img-top" src="~/img/img_sp/@item.HinhAnh" />
+                                    </a>
+                                </div>
+                                <div class="cart-body">
+                                    @Html.ActionLink(item.TenSanPham, "Details", "HienThi", new { id = item.IDSanPham }, new { @class = "product-name" })
+                                    <p class="product-price">@item.Gia VND</p>
+
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <button class="btn btn-outline-danger btn-sm" onclick="addToCart(@item.IDSanPham)">Giỏ Hàng</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        itemCount++;
+                    }
+
+                    // Close any remaining open tags
+                    if (isRowOpen)
+                    {
+                        @:</div> <!-- Close last row -->
+                        @:</div> <!-- Close last carousel-item -->
+                    }
+                }
+            </div>
+            <!-- Carousel controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#suggestedProductsCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#suggestedProductsCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+function addToCart(maSP) {
+    fetch('@Url.Action("AddToCart", "Cart")', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest',
+        },
+        body: JSON.stringify({ maSP: maSP })
+    })
+    .then(response => {
+        if(response.ok) {
+            alert('Sản phẩm đã được thêm vào giỏ hàng!');
+        } else {
+            alert('Có lỗi xảy ra. Vui lòng thử lại!');
+        }
+    })
+    .catch(error => console.error('Lỗi:', error));
+}
+</script>
